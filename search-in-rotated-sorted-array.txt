@@ -1,0 +1,49 @@
+class Solution {
+    public int search(int[] nums, int target) {
+        int n=nums.length;
+        return bs(nums, target);
+    }
+
+    private int bs(int[] nums, int target) {
+        int pivot = getPivotSize(nums);
+        int left = 0;
+        int right = nums.length-1;
+        int mid = 0;
+
+        while(left<=right) {
+            mid = (right-left)/2 + left;
+
+            int midId = getRealId(nums, pivot, mid);
+            if(nums[midId]==target) {
+                return midId;
+            } else if(target<nums[midId]) {
+                right = mid - 1;
+            } else {
+                left = mid + 1;
+            }
+        }
+
+        return -1;
+    }
+
+    private int getPivotSize(int[] nums) {
+        for(int i=1; i<nums.length; i++) {
+            if(nums[i]<nums[i-1]) {
+                return i;
+            }
+        }
+
+        return 0;
+    }
+
+    private int getRealId(int[] nums, int pivot, int index) {
+        if(index+pivot<=nums.length-1) {
+            return index+pivot;
+        }
+
+        return (index+pivot)-nums.length;
+    }
+}
+
+Space Complexity - O(1)
+Time Complexity - O(N + PivotSize) - O(N)
