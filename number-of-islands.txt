@@ -1,0 +1,48 @@
+https://leetcode.com/problems/number-of-islands/
+
+class Solution {
+    public int numIslands(char[][] grid) {
+        int n = grid.length;
+        int m = grid[0].length;
+
+        boolean[][] isIslandSet = new boolean[n][m];
+
+        int result = 0;
+        for(int i=0; i<n; i++) {
+            for(int j=0; j<m; j++) {
+                if(!isIslandSet[i][j] && grid[i][j] == '1') {
+                    dfs(grid,isIslandSet, i, j);
+                    result++;
+                }
+            }
+        } 
+
+        return result;
+    }
+
+    private void dfs(char[][] grid, boolean[][] isIslandSet, int i, int j) {
+        int n = grid.length;
+        int m = grid[0].length;
+
+        isIslandSet[i][j] = true;
+
+        if(j+1 < m && !isIslandSet[i][j+1] && grid[i][j+1] == '1') {
+            dfs(grid, isIslandSet, i, j+1);
+        }
+
+        if(j-1 >= 0 && !isIslandSet[i][j-1] && grid[i][j-1] == '1') {
+            dfs(grid, isIslandSet, i, j-1);
+        }
+
+        if(i+1 < n && !isIslandSet[i+1][j] && grid[i+1][j] == '1') {
+            dfs(grid, isIslandSet, i+1, j);
+        }
+
+        if(i-1 >=0 && !isIslandSet[i-1][j] && grid[i-1][j] == '1') {
+            dfs(grid, isIslandSet, i-1, j);
+        }
+    }
+}
+
+Space Complexity - O(N*M)
+Time Complexity - O(N*M)
