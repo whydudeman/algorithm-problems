@@ -1,0 +1,22 @@
+https://leetcode.com/problems/validate-binary-search-tree/ 
+
+class Solution {
+    public boolean isValidBST(TreeNode root) {
+        if(root!=null)
+            return dfs(root, null, null);
+        return true;
+    }
+
+    private boolean dfs(TreeNode root, Integer min, Integer max) {
+        if(root == null) 
+            return true;
+
+        if(min!=null && root.val <= min || max!=null && root.val >= max)
+            return false;
+
+        return (dfs(root.left, min, root.val)) &&  (dfs(root.right, root.val, max));
+    }
+}
+
+Space Complexity O(N) - for each recursive method we have proportional memory usage
+Time Complexity O(N) - for each node 
