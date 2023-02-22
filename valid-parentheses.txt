@@ -1,0 +1,32 @@
+class Solution {
+    public boolean isValid(String s) {
+        Stack<Character> stack  = new Stack<>();
+        Map<Character, Character> map = new HashMap<>();
+        map.put('(', ')');
+        map.put('[', ']');
+        map.put('{', '}');
+        
+        for(int i=s.length()-1; i>=0; i--) {
+            Character current = s.charAt(i);
+            if(current==')' || current=='}' || current == ']') {
+                stack.push(s.charAt(i));
+            }
+            
+            if(map.containsKey(current)) {
+                if(stack.empty())
+                    return false;
+                
+                Character poped = stack.pop();
+                if(map.get(current) != poped){
+                    return false;
+                } 
+            }
+        }
+        
+        return stack.empty();
+    }
+}
+
+Space Complexity - O(N)
+Time Complexity - O(N)
+
